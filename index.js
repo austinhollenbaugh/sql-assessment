@@ -75,8 +75,12 @@ app.get('/api/vehicle', function(req, res, next) {
     // will find all vehicles that belong to the user with the provided users Email
     var email = req.query.email;
     db.get_vehicles_by_email(email, function(err, vehicles) {
-      console.log(req.query.email);
-      res.status(200).send(vehicles);
+      if(err){
+    		res.send(err);
+    	} else {
+    		res.status(200).send(vehicles);
+    	}
+
     });
   } else if (req.query.userFirstStart) {
     // get all vehicles for any user whose first name starts with the provided letters
